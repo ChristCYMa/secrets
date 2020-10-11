@@ -42,7 +42,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 //connect mongoose to database
-mongoose.connect("mongodb+srv://admin-christ:adminpassword@cluster0.4ceok.mongodb.net/userDB", {useNewUrlParser:true, useUnifiedTopology: true});
+mongoose.connect("mongodb+srv://admin-christ:"+process.env.MONGOPW+"@cluster0.4ceok.mongodb.net/userDB", {useNewUrlParser:true, useUnifiedTopology: true});
 mongoose.set('useCreateIndex', true);
 
 //create schema for user logins
