@@ -13,6 +13,7 @@ const mongoose = require("mongoose");
 
 //now using passport
 const session = require("express-session");
+const MongoStore = require('connect-mongo')(session);
 const passport = require("passport");
 const passportLocalMongoose = require("passport-local-mongoose");
 const findOrCreate = require('mongoose-findorcreate');
@@ -33,6 +34,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 //initialize express session
 app.use(session({
   secret: process.env.SECRETSTRING,
+  store: new MongoStore({ url: "mongodb+srv://admin-christ:"+process.env.MONGOPW+"@cluster0.4ceok.mongodb.net/userDB" }),
   resave: false,
   saveUninitialized: false
 }));
