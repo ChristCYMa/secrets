@@ -42,7 +42,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 //connect mongoose to database
-mongoose.connect("mongodb://localhost:27017/userDB", {useNewUrlParser:true, useUnifiedTopology: true});
+mongoose.connect("mongodb+srv://admin-christ:adminpassword@cluster0.4ceok.mongodb.net/userDB", {useNewUrlParser:true, useUnifiedTopology: true});
 mongoose.set('useCreateIndex', true);
 
 //create schema for user logins
@@ -88,7 +88,7 @@ passport.deserializeUser(function(id, done) {
 passport.use(new GoogleStrategy({
     clientID: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET,
-    callbackURL: "http://localhost:3000/auth/google/secrets",
+    callbackURL: "https://arcane-journey-84492.herokuapp.com/auth/google/secrets",
     userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
   },
   function(accessToken, refreshToken, profile, cb) {
@@ -101,7 +101,7 @@ passport.use(new GoogleStrategy({
 passport.use(new FacebookStrategy({
     clientID: process.env.FACEBOOK_APP_ID,
     clientSecret: process.env.FACEBOOK_SECRET,
-    callbackURL: "http://localhost:3000/auth/facebook/secrets"
+    callbackURL: "https://arcane-journey-84492.herokuapp.com/auth/facebook/secrets"
   },
   function(accessToken, refreshToken, profile, cb) {
     User.findOrCreate({ facebookId: profile.id }, function (err, user) {
@@ -275,6 +275,6 @@ app.post("/login", function(req,res){
 
 
 //Start up server
-app.listen(3000, function(){
-  console.log("server started on port 3000");
+app.listen(process.env.PORT, function(){
+  console.log("server started");
 });
